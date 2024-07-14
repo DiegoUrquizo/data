@@ -1,0 +1,433 @@
+Describa cómo realizaría paso a paso un dashboard en Tableau, donde una de las gráficas fuera un mapa. Este mapa debe cumplir las siguientes características:
+•	El mapa consta de regiones (variable Región) y en ellas se deben mostrar las ventas (variable Ventas) realizadas en todas sus ciudades (variable Ciudad).
+•	Este mapa se utilizará como filtro dentro del dashboard.
+•	En el mapa se deben poder marcar dinámicamente en color rojo aquellas regiones cuyas ventas totales estén por debajo de los 100.000 €, de los 150.000€ y de los 200.000€
+Creación de un Dashboard en Tableau con un Mapa Interactivo
+Paso 1: Preparar los datos
+Asegúrate de que tus datos contengan las columnas Región, Ciudad y Ventas.
+Parte 1: Crear el Mapa
+1.	Abrir Tableau y conectar los datos:
+o	Abre Tableau y conecta tu fuente de datos que incluya las variables necesarias.
+2.	Crear la vista del mapa:
+o	Arrastra Región y Ciudad al estante de detalles (Detail) en la tarjeta de marcas.
+o	Asegúrate de que el gráfico esté configurado como un mapa (puedes seleccionarlo en el menú de tipo de gráfico si no se detecta automáticamente).
+o	Arrastra Ventas al estante de tamaño (Size) para que el tamaño de los puntos en el mapa refleje el volumen de ventas.
+3.	Crear un parámetro para el umbral de ventas:
+o	Haz clic derecho en el panel de datos y selecciona Crear Parámetro....
+o	Nombra el parámetro Umbral de Ventas.
+o	Configura el tipo de datos como Float o Integer.
+o	Establece los valores en 100000, 150000, y 200000.
+4.	Crear un campo calculado para el color dinámico:
+o	Haz clic derecho en el panel de datos y selecciona Crear Campo Calculado....
+o	Nombra el campo Color Ventas.
+o	Usa la siguiente fórmula:
+sql
+Copiar código
+IF SUM([Ventas]) < [Umbral de Ventas] THEN "Rojo" ELSE "Otro" END
+5.	Aplicar el campo calculado al mapa:
+o	Arrastra Color Ventas a la tarjeta de color (Color). Esto hará que las regiones cambien de color según el umbral seleccionado.
+6.	Mostrar el control de parámetro:
+o	Haz clic derecho en el parámetro Umbral de Ventas y selecciona Mostrar Control de Parámetro. Esto permitirá a los usuarios ajustar el umbral dinámicamente.
+Parte 2: Usar el Mapa como Filtro
+1.	Configurar el mapa para usarlo como filtro:
+o	Haz clic en la flecha desplegable en la esquina superior derecha de la vista del mapa.
+o	Selecciona “Usar como filtro” (Use as Filter).
+Parte 3: Crear el Dashboard
+1.	Crear un nuevo dashboard:
+o	Haz clic en el botón de nuevo dashboard (New Dashboard).
+2.	Agregar el mapa al dashboard:
+o	Arrastra la hoja del mapa al dashboard.
+3.	Agregar otras vistas al dashboard (opcional):
+o	Si deseas incluir otras visualizaciones que serán filtradas por el mapa, crea y configura esas vistas en hojas separadas y luego agrégalas al dashboard.
+4.	Ajustar el diseño:
+o	Organiza las vistas según tus preferencias.
+o	Asegúrate de que el control de parámetro esté visible para que los usuarios puedan ajustar el umbral de ventas.
+Parte 4: Publicar y Revisar
+1.	Publicar el dashboard:
+o	Publica tu dashboard en Tableau Server o Tableau Public si deseas compartirlo con otros.
+2.	Verificar la funcionalidad:
+o	Prueba la interactividad del dashboard ajustando el parámetro del umbral de ventas y asegurándote de que las regiones cambien de color correctamente.
+o	Haz clic en diferentes regiones del mapa para verificar que se usen como filtro y que las 
+
+------------------------------
+Describa cómo realizaría paso a paso un dashboard en Tableau, donde una de las gráficas fuera un diagrama de barras. Este diagrama debe cumplir las siguientes características:
+•	El diagrama de barras representa las ventas (variable Ventas) de todas las familias de producto (variable Familia).
+•	En el diagrama de barras se pueden marcar dinámicamente en color rojo aquellas familias de producto cuyas ventas totales estén por encima de 500.000€, 750.000€ y 1.000.000€
+•	Al hacer clic en una barra, se mostrarán las ventas realizadas en todas y cada uno de los productos (variable Producto) que forman parte de dicha familia de producto.
+Creación de un Dashboard en Tableau con un Diagrama de Barras Interactivo
+Paso 1: Preparar los datos
+Asegúrate de que tus datos contengan las columnas Ventas, Familia y Producto.
+Parte 1: Crear el Diagrama de Barras
+1.	Abrir Tableau y conectar los datos:
+o	Abre Tableau y conecta tu fuente de datos que incluya las variables necesarias.
+2.	Crear la vista del diagrama de barras:
+o	Arrastra Familia al estante de columnas (Columns).
+o	Arrastra Ventas al estante de filas (Rows).
+o	Asegúrate de que la agregación de Ventas esté configurada como SUM.
+3.	Crear un parámetro para el rango de ventas:
+o	Haz clic derecho en el panel de datos y selecciona Crear Parámetro....
+o	Nombra el parámetro Umbral de Ventas.
+o	Configura el tipo de datos como Float o Integer.
+o	Establece los valores en 500000, 750000, y 1000000.
+4.	Crear un campo calculado para el color dinámico:
+o	Haz clic derecho en el panel de datos y selecciona Crear Campo Calculado....
+o	Nombra el campo Color Ventas.
+o	Usa la siguiente fórmula:
+sql
+Copiar código
+IF [Ventas] >= [Umbral de Ventas] THEN "Rojo" ELSE "Otro" END
+5.	Aplicar el campo calculado al diagrama de barras:
+o	Arrastra Color Ventas a la tarjeta de color (Color). Esto hará que las barras cambien de color según el umbral seleccionado.
+6.	Mostrar el control de parámetro:
+o	Haz clic derecho en el parámetro Umbral de Ventas y selecciona Mostrar Control de Parámetro. Esto permitirá a los usuarios ajustar el umbral dinámicamente.
+Parte 2: Crear la Tabla de Productos
+1.	Crear una nueva hoja:
+o	Haz clic en el botón de nueva hoja (Sheet).
+2.	Crear la tabla de productos:
+o	Arrastra Producto al estante de filas (Rows).
+o	Arrastra Ventas al estante de columnas (Columns).
+o	Arrastra Familia al estante de filtros (Filters) y selecciona "All".
+Parte 3: Configurar las acciones
+1.	Volver a la hoja del diagrama de barras:
+o	Selecciona la hoja del diagrama de barras que creaste en el Paso 1.
+2.	Usar el diagrama de barras como filtro:
+o	Haz clic en la flecha desplegable en la esquina superior derecha de la vista del diagrama de barras.
+o	Selecciona “Usar como filtro” (Use as Filter).
+Parte 4: Crear el Dashboard
+1.	Crear un nuevo dashboard:
+o	Haz clic en el botón de nuevo dashboard (New Dashboard).
+2.	Agregar las vistas al dashboard:
+o	Arrastra la hoja del diagrama de barras al dashboard.
+o	Arrastra la hoja de la tabla de productos al dashboard.
+3.	Ajustar el diseño:
+o	Organiza las vistas según tus preferencias.
+o	Asegúrate de que el control de parámetro esté visible para que los usuarios puedan ajustar el umbral de ventas.
+Parte 5: Publicar y Revisar
+1.	Publicar el dashboard:
+o	Publica tu dashboard en Tableau Server o Tableau Public si deseas compartirlo con otros.
+2.	Verificar la funcionalidad:
+o	Prueba la interactividad del dashboard ajustando el parámetro del umbral de ventas y asegurándote de que las barras cambien de color correctamente.
+o	Haz clic en diferentes barras para verificar que la tabla de productos se actualice y muestre las ventas de los productos correspondientes a la familia seleccionada.
+
+------------------------------------
+Describa cómo realizaría paso a paso un dashboard en Tableau, compuesto por un diagrama de barras acumuladas y una tabla de datos.
+1) El diagrama de barras debe cumplir las siguientes características:
+•	El diagrama de barras representa las ventas (variable Ventas) realizadas por la empresa.
+•	Estas ventas estarán distribuidas por regiones (variable Región). Cada una de las barras representa a una región.
+•	Cada región a su vez, incluye ventas de productos de diferentes Categorías (variable Category).
+•	Mostrar con diferentes colores las ventas de cada categoría en cada una de las barras que representan las regiones.
+2) La tabla de datos debe cumplir las siguientes características:
+•	La tabla debe mostrar todas las ventas realizadas en las diferentes regiones.
+•	Los valores de las ventas en esta tabla se marcarán en color verde de forma dinámica en función del valor que escoja el usuario entre un rango de ventas que oscila entre 500.000€ y 1.000.000€, con un paso de 100.000€ 
+Creación de un Dashboard en Tableau con un Diagrama de Barras Acumuladas y una Tabla de Datos
+Paso 1: Preparar los datos
+Asegúrate de que tus datos contengan las columnas Ventas, Región y Categoría.
+Parte 1: Crear el Diagrama de Barras Acumuladas
+1.	Abrir Tableau y conectar los datos:
+o	Abre Tableau y conecta tu fuente de datos que incluye las variables necesarias.
+2.	Crear la vista del diagrama de barras acumuladas:
+o	Arrastra Región al estante de columnas (Columns).
+o	Arrastra Ventas al estante de filas (Rows).
+o	Asegúrate de que la agregación de Ventas esté configurada como SUM.
+o	Arrastra Categoría a la tarjeta de color (Color). Esto dividirá cada barra por categorías y les asignará diferentes colores.
+o	Verifica que el gráfico esté configurado como un diagrama de barras apiladas. Puedes hacer esto seleccionando la opción de barras apiladas en el menú desplegable de tipo de gráfico.
+3.	Personalizar el gráfico:
+o	Ajusta los colores para que las categorías sean distinguibles.
+o	Agrega etiquetas de datos arrastrando Ventas a la tarjeta de etiquetas (Label) si deseas mostrar los valores en las barras.
+Parte 2: Crear la Tabla de Datos
+1.	Crear una nueva hoja:
+o	Haz clic en el botón de nueva hoja (Sheet).
+2.	Crear la tabla de datos:
+o	Arrastra Región y Categoría al estante de filas (Rows).
+o	Arrastra Ventas al estante de texto (Text) en la tarjeta de marcas.
+o	Cambia la visualización a Texto para mostrar los valores en formato tabular.
+3.	Crear un parámetro para el rango de ventas:
+o	Haz clic derecho en el panel de datos y selecciona Crear Parámetro....
+o	Nombra el parámetro Rango de Ventas.
+o	Configura el tipo de datos como Float o Integer.
+o	Establece el valor mínimo en 500000, el valor máximo en 1000000 y el paso en 100000.
+4.	Crear un campo calculado para el color dinámico:
+o	Haz clic derecho en el panel de datos y selecciona Crear Campo Calculado....
+o	Nombra el campo Color Ventas.
+o	Usa la siguiente fórmula:
+sql
+Copiar código
+IF [Ventas] >= [Rango de Ventas] THEN "Verde" ELSE "Otro" END
+5.	Aplicar el campo calculado a la tabla:
+o	Arrastra Color Ventas a la tarjeta de color (Color) para que los valores de ventas se marquen en verde según el parámetro.
+6.	Mostrar el control de parámetro:
+o	Haz clic derecho en el parámetro Rango de Ventas y selecciona Mostrar Control de Parámetro. Esto permitirá a los usuarios ajustar el rango de ventas dinámicamente.
+Parte 3: Crear el Dashboard
+1.	Crear un nuevo dashboard:
+o	Haz clic en el botón de nuevo dashboard (New Dashboard).
+2.	Agregar las vistas al dashboard:
+o	Arrastra la hoja del diagrama de barras acumuladas al dashboard.
+o	Arrastra la hoja de la tabla de datos al dashboard.
+3.	Ajustar el diseño:
+o	Organiza las vistas según tus preferencias.
+o	Asegúrate de que el control de parámetro esté visible para que los usuarios puedan ajustar el rango de ventas.
+Parte 4: Publicar y Revisar
+1.	Publicar el dashboard:
+o	Publica tu dashboard en Tableau Server o Tableau Public si deseas compartirlo con otros.
+2.	Verificar la funcionalidad:
+o	Prueba la interactividad del dashboard ajustando el parámetro del rango de ventas y asegurándote de que la tabla de datos se actualice correctamente.
+o	Verifica que el diagrama de barras acumuladas represente las ventas por región y categoría con colores diferentes.
+
+
+
+
+------------------------------
+
+Describa paso a paso cómo realizaría el diagrama de barras acumuladas siguiente en Tableau.
+●	La visualización representa la relación entre ventas y beneficios de una empresa. Ventas en el eje vertical y beneficio en el eje horizontal.
+●	Además, cada círculo tendrá un color en base a la variable Grupo y un tamaño en base a la variable Peso.
+●	Incluya un parámetro para marcar en color verde aquellos círculos que representan unas ventas superiores a un UMBRAL1 y un beneficio superior a un UMBRAL2.
+
+ (Responder en 2 caras) 
+
+
+PASOS
+
+-	Arastrar al eje rows las ventas 
+-	Arrastras al eje columnas todos beneficios
+-	Para lo del color se debe arrastrar la variable grupo a las marcas y dejarlo caer en la marca de color 
+-	Referete al tamanio dejarlo caer en la marca de color.
+-	Crearia dos umbrales con diferentes valores
+-	Se crearia dos medidas para validar que superen al umbral anteriormente creado
+-	Se estableciria en las marcas , propiedades para validar que el color si supera los umbrales marque como verdr.
+--------------------------------------
+Describa paso a paso cómo realizaría el diagrama de barras acumuladas siguiente en Tableau.
+●	La visualización representa la relación entre ventas y beneficios de una empresa. Ventas en el eje vertical y beneficio en el eje horizontal.
+●	Además, cada círculo tendrá un color en base a la variable Grupo y un tamaño en base a la variable Peso.
+●	Incluya un parámetro para marcar en color verde aquellos círculos que representan unas ventas superiores a un UMBRAL1 y un beneficio superior a un UMBRAL2.
+
+ (Responder en 2 caras) 
+
+
+PASOS
+
+-	Arastrar al eje rows las ventas 
+-	Arrastras al eje columnas todos beneficios
+-	Para lo del color se debe arrastrar la variable grupo a las marcas y dejarlo caer en la marca de color 
+-	Referete al tamanio dejarlo caer en la marca de color.
+-	Crearia dos umbrales con diferentes valores
+-	Se crearia dos medidas para validar que superen al umbral anteriormente creado
+-	Se estableciria en las marcas , propiedades para validar que el color si supera los umbrales marque como verdr.
+----------------------------------------
+
+Describa cómo realizaría la visualización que se propone paso a paso en Tableau 
+Creación de un diagrama de barras acumuladas con las siguientes características:
+•	El diagrama de barras representa las ventas (variable Ventas) realizadas por la empresa.
+•	Estas ventas estarán distribuidas por regiones (variable Region). Cada una de las barras representa a una región.
+•	Cada región a su vez, incluye ventas de productos de diferentes Categorías (variable Category). 
+•	Mostrar con diferentes colores las ventas de cada categoría en cada una de las barras que representan las regiones.
+
+1.	Conectar los datos:
+o	Abre Tableau y conecta tu fuente de datos que incluya las variables Ventas, Region y Category.
+2.	Crear la vista:
+o	Arrastra Region al estante de columnas (Columns).
+o	Arrastra Ventas al estante de filas (Rows).
+o	Asegúrate de que la agregación de Ventas esté configurada como SUM.
+3.	Agregar las categorías:
+o	Arrastra Category a la tarjeta de color (Color). Esto dividirá cada barra por categorías y les asignará diferentes colores.
+4.	Ajustar el gráfico:
+o	Asegúrate de que el gráfico esté configurado como un diagrama de barras apiladas. Esto se puede verificar en el menú desplegable de tipo de gráfico y seleccionando la opción de barras apiladas si no se ha seleccionado automáticamente.
+5.	Personalización adicional:
+o	Ajusta los colores según sea necesario para asegurar que las categorías se distingan claramente.
+o	Agrega etiquetas de datos arrastrando Ventas a la tarjeta de etiquetas (Label) si deseas mostrar los valores directamente en las barras.
+
+--------------------------------------
+Describa cómo realizaría la visualización que se propone paso a paso en Tableau 
+Creación de un dashboard compuesto por las dos siguientes gráficas:
+•	Un mapa donde cada región (variable Región) incorpore la suma de ventas (variable Ventas) de todas sus ciudades (variable Ciudad).
+•	Al hacer clic en una región del mapa, se mostrarán las ventas realizadas en todas y cada una de las ciudades de dicha región. Describa cómo utilizarías este mapa como filtro dentro del dashboard.
+Paso 1: Preparar los datos
+Asegúrate de que tus datos estén bien estructurados con las columnas necesarias: Región, Ciudad, y Ventas.
+Paso 2: Crear la vista del mapa
+1.	Abrir Tableau y conectar los datos:
+o	Abre Tableau y conecta tu fuente de datos (archivo Excel, base de datos, etc.).
+2.	Crear el mapa:
+o	Arrastra Región a la vista. Tableau debería reconocerlo automáticamente como un campo geográfico y crear un mapa.
+o	Arrastra Ventas a la tarjeta de Color.
+o	Cambia la agregación de Ventas a SUM si no lo hace automáticamente.
+o	Asegúrate de que el nivel de detalle esté configurado en Región.
+Paso 3: Crear la tabla de detalle de ventas por ciudad
+1.	Crear una nueva hoja:
+o	Haz clic en el botón de nueva hoja (Sheet).
+2.	Crear la tabla de detalle:
+o	Arrastra Ciudad a las filas (Rows).
+o	Arrastra Ventas a las columnas (Columns).
+o	Arrastra Región al estante de filtros (Filters) y selecciona "All".
+Paso 4: Configurar el mapa como filtro
+1.	Volver a la hoja del mapa:
+o	Selecciona la hoja del mapa que creaste en el paso 2.
+2.	Usar el mapa como filtro:
+o	Haz clic en la flecha desplegable en la esquina superior derecha de la vista del mapa.
+o	Selecciona “Usar como filtro” (Use as Filter).
+Paso 5: Crear el dashboard
+1.	Crear un nuevo dashboard:
+o	Haz clic en el botón de nuevo dashboard (New Dashboard).
+2.	Agregar las vistas al dashboard:
+o	Arrastra la hoja del mapa al dashboard.
+o	Arrastra la hoja de la tabla de detalle al dashboard.
+3.	Configurar el diseño:
+o	Ajusta el tamaño y la disposición de las vistas según sea necesario.
+Paso 6: Publicar y verificar
+1.	Publicar el dashboard:
+o	Publica tu dashboard en Tableau Server o Tableau Public si deseas compartirlo con otros.
+2.	Verificar la interactividad:
+o	Prueba la interactividad haciendo clic en diferentes regiones del mapa y asegúrate de que la tabla de detalle se actualice para mostrar las ventas de las ciudades dentro de la región seleccionada.
+Paso 7: Personalización adicional
+1.	Ajustar colores y etiquetas:
+o	Personaliza los colores del mapa para hacer las diferencias de ventas más visibles.
+o	Agrega etiquetas a los puntos en el mapa y la tabla de detalle para facilitar la lectura.
+2.	Agregar títulos y descripciones:
+o	Agrega un título al dashboard y descripciones según sea necesario para que los usuarios comprendan la funcionalidad del dashboard.
+3.	Configuración de filtros:
+o	Asegúrate de que los filtros del mapa funcionen correctamente para actualizar la tabla de detalle cuando se seleccione una región.
+
+2. Acciones en Tableau y cómo desencadenar eventos en Dashboards
+Acciones en Tableau son mecanismos que permiten la interactividad dentro de un dashboard. Las acciones pueden desencadenar eventos que cambian la apariencia y el comportamiento del dashboard en respuesta a la interacción del usuario. Los tipos de acciones más comunes en Tableau son:
+1.	Acciones de Filtro:
+o	Estas acciones permiten que una selección en una vista filtre los datos en otra vista.
+2.	Acciones de Resaltar:
+o	Estas acciones resaltan datos específicos en una vista basada en una selección en otra vista.
+3.	Acciones de URL:
+o	Estas acciones abren una URL en respuesta a una interacción del usuario.
+4.	Acciones de Parámetro:
+o	Estas acciones permiten que las selecciones en una vista cambien el valor de un parámetro, que puede ser utilizado en cálculos y vistas.
+Cómo desencadenar eventos en Dashboards usando acciones:
+1.	Crear una Acción de Filtro:
+o	Ve al menú de Dashboard y selecciona Acciones....
+o	Haz clic en Añadir acción y selecciona Filtro....
+o	En la ventana que aparece, especifica la hoja de origen (la vista que desencadenará el evento) y la hoja de destino (la vista que será filtrada).
+o	Configura las opciones de la acción, como la acción de desencadenamiento (seleccionar, pasar el ratón o menú), y haz clic en OK.
+2.	Crear una Acción de Resaltar:
+o	Ve al menú de Dashboard y selecciona Acciones....
+o	Haz clic en Añadir acción y selecciona Resaltar....
+o	En la ventana que aparece, especifica la hoja de origen y la hoja de destino.
+o	Configura las opciones de la acción y haz clic en OK.
+3.	Crear una Acción de URL:
+o	Ve al menú de Dashboard y selecciona Acciones....
+o	Haz clic en Añadir acción y selecciona URL....
+o	En la ventana que aparece, especifica la hoja de origen y la URL que deseas abrir.
+o	Configura las opciones de la acción y haz clic en OK.
+4.	Crear una Acción de Parámetro:
+o	Ve al menú de Dashboard y selecciona Acciones....
+o	Haz clic en Añadir acción y selecciona Parámetro....
+o	En la ventana que aparece, especifica la hoja de origen y el parámetro que deseas cambiar.
+o	Configura las opciones de la acción y haz clic en OK.
+3. Crear "Grupos" de campos para su aplicación en el apartado de "FILTROS"
+Grupos en Tableau permiten agrupar valores discretos en categorías personalizadas. Esto puede ser útil para simplificar análisis, consolidar valores y crear filtros más manejables.
+Cómo crear Grupos:
+1.	Crear un Grupo desde la hoja de datos:
+o	En el panel de datos, selecciona el campo que deseas agrupar.
+o	Haz clic derecho sobre el campo y selecciona Crear > Grupo....
+o	En la ventana que aparece, selecciona los valores que deseas agrupar y haz clic en Agrupar. Puedes renombrar el grupo si es necesario.
+o	Haz clic en OK para crear el grupo. El grupo aparecerá como un nuevo campo en el panel de datos.
+2.	Crear un Grupo desde la vista:
+o	En una vista, selecciona los puntos de datos que deseas agrupar.
+o	Haz clic derecho sobre la selección y elige Agrupar.
+o	Tableau creará un grupo con los puntos de datos seleccionados y lo añadirá al panel de datos.
+3.	Aplicar Grupos en Filtros:
+o	Una vez que el grupo está creado, puedes arrastrarlo al estante de filtros (Filters) para usarlo como filtro.
+o	Configura las opciones de filtro como lo harías con cualquier otro campo.
+
+----------------------
+
+ Describa cómo crearía un dashboard compuesto por un gráfico de barras y una tabla de datos con las siguientes características:
+1) Diagrama de barras:
+•	La visualización representa el valor medio de venta realizada en un año concreto en cada una de sus tiendas. El valor de cada venta está recogido en la variable Ventas, las tiendas en la variable Tienda y el día de la venta en la variable Fecha.
+•	Incluye un filtro para seleccionar el año de las ventas y otro para seleccionar la familia de productos (variable Categoría)
+2) Tabla de datos
+•	Se mostrará el valor medio de compra para cada una de las categorías de productos de la empresa y para cada una de las tiendas de la empresa.
+•	Al seleccionar una tienda en el diagrama de barras, exclusivamente se mostrarán en la tabla de datos los valores medios de compra de las categorías de esa tienda.
+
+Puedes desarrollar el ejercicio en la herramienta y subir las evidencias de los resultados obtenidos, es opcional.
+
+ (Responder en 1 caras) 
+
+DIAGRAMA DE BARRAS:
+1. Definir los datos a utilizar:
+-Variable Ventas: valor de cada venta
+-Variable Tienda: identificación de la tienda
+-Variable fecha: fecha de la venta
+- Variable Categoría: categoría del producto vendido
+
+2. Construir diagrama de barras:
+- El eje X representará las tiendas.
+- El eje Y representará el valor medio de las ventas (ventas).
+- Agrupar los datos por año y calcular el valor medio de las ventas por tienda.
+- Incluir dos filtros: uno para seleccionar el año de las ventas (fecha) y otro para seleccionar la categoría de los productos (categoría).
+
+3. Implementar la visualización: 
+- Utilizar herramientas como Power BI, Tableau, o un entorno de programación como Python con librerías como Matplotlib, Seaborn o Plotly.
+- Configurar los filtros interactivos para permitir la selección dinámica del año y la categoría de productos.
+
+TABLA DE DATOS
+1. Definir los datos a mostrar: valor medio de compra para cada categoría de productos en cada tienda.
+2. Construir la tabla de datos: la tabla debe mostrar las categorías de productos en las filas y las tiendas en las columnas.
+Calcular el valor medio de compra para cada combinación de categoría y tienda.
+3. Interactividad con el diagrama de barras. 
+Al seleccionar una tienda en el diagrama de barras, la tabla debe actualizarse para mostrar solo los valores medios de compra de las categorías de esa tienda. Esto se puede logar con interacciones entre gráficos y tablas como Power BI o Tableau.
+
+Ejemplo de implementación en Power BI:
+1. Importar datos: cargar el conjunto de datos que contiene las variables ventas, tienda, fecha y categoría.
+2. Crear diagrama de barras: insertar un gráfico de barras, configurar eje X con la variable tienda y eje Y con la media de ventas. Añadir segmentaciones para fecha (año) y categoría.
+3. Crear tabla de datos: Insertar tabla visual, configuar las filas con categoría y las columnas con tienda y añadir la medida de valor medio de compra a la tabla.
+4. Configuar la interactividad: configurar la interacción de manera que al seleccionar una tienda en el gráfico de barras, la tabla se filtre automáticamente para mostrar los valores correspondientes a esa tienda.
+
+--------------------------
+Describa paso a paso cómo realizaría el diagrama de barras acumuladas siguiente en Tableau.
+•	La visualización representa la relación entre ventas y beneficios de una empresa.
+•	Ventas en el eje vertical y beneficio en el eje horizontal. Además, cada círculo tendrá un color en base a la variable Grupo y un tamaño en base a la variable Peso.
+•	Incluya un parámetro para marcar en color verde aquellos círculos que representan unas ventas superiores a un UMBRAL1 y un beneficio superior a un UMBRAL2.
+Puedes desarrollar el ejercicio en la herramienta y subir las evidencias de los resultados obtenidos, es opcional.
+
+ (Responder en 1 caras) 
+Para crear un diagrama de barras acumuladas en Tableau que represente la relación entre ventas y beneficios con los requisitos que mencionas, sigue estos pasos:
+1.	Conectar los datos:
+o	Abre Tableau y conecta tus datos (por ejemplo, un archivo Excel, una base de datos, etc.).
+2.	Preparar los datos:
+o	Asegúrate de que tus datos tengan las columnas necesarias: Ventas, Beneficio, Grupo, y Peso.
+3.	Crear la vista básica:
+o	Arrastra Ventas al eje de filas (Rows).
+o	Arrastra Beneficio al eje de columnas (Columns).
+4.	Agregar tamaño y color:
+o	Arrastra Grupo a la tarjeta de color (Color).
+o	Arrastra Peso a la tarjeta de tamaño (Size).
+5.	Ajustar los círculos:
+o	Asegúrate de que el gráfico esté en formato de dispersión (scatter plot). Esto se puede hacer haciendo clic en la opción de gráfico y seleccionando “Circle”.
+6.	Crear los parámetros:
+o	Ve a la pestaña de datos y selecciona “Create Parameter”.
+	Nombre: UMBRALES1
+	Tipo de datos: Float
+	Valor mínimo: 0 (o el valor que consideres apropiado)
+	Valor máximo: (Un valor mayor a las ventas máximas que tienes)
+o	Repite el proceso para crear un segundo parámetro:
+	Nombre: UMBRALES2
+	Tipo de datos: Float
+	Valor mínimo: 0 (o el valor que consideres apropiado)
+	Valor máximo: (Un valor mayor al beneficio máximo que tienes)
+7.	Crear el campo calculado para color verde:
+o	Ve a la pestaña de datos y selecciona “Create Calculated Field”.
+	Nombre: Color Verde
+	Fórmula:
+sql
+Copiar código
+IF [Ventas] > [UMBRALES1] AND [Beneficio] > [UMBRALES2] THEN "Verde" ELSE "Otro" END
+8.	Aplicar el campo calculado a la visualización:
+o	Arrastra el campo calculado Color Verde a la tarjeta de color (Color). Esto sobrescribirá los colores actuales, así que haz clic en la tarjeta de color y selecciona “Edit Colors”.
+o	Asigna el color verde para la categoría "Verde" y elige otros colores para las demás categorías según sea necesario.
+9.	Mostrar los parámetros en la vista:
+o	Haz clic derecho en cada parámetro (UMBRALES1 y UMBRALES2) y selecciona “Show Parameter Control”. Esto permitirá que los usuarios ajusten los umbrales dinámicamente.
+10.	Personalización adicional:
+o	Ajusta el tamaño de los círculos para que sean visibles pero no demasiado grandes.
+o	Agrega etiquetas si es necesario arrastrando Ventas y Beneficio a la tarjeta de etiqueta (Label).
+11.	Finalizar y publicar:
+o	Verifica que todo esté funcionando como deseas.
+o	Publica tu visualización en Tableau Server o Tableau Public si deseas compartirla con otros.
+Con estos pasos, deberías tener un diagrama de dispersión en Tableau que muestre la relación entre ventas y beneficios, con círculos de diferentes colores y tamaños basados en las variables Grupo y Peso, y con la capacidad de resaltar en verde aquellos puntos que excedan los umbrales especificados.
+
+
+
